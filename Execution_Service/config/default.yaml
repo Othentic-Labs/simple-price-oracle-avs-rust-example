@@ -1,0 +1,29 @@
+server:
+  host: "127.0.0.1"
+  port: 4000
+  name: "Notary Server"
+  html_info: "Server is running"
+
+tls:
+  enabled: false
+  cert_path: ""
+  key_path: ""
+
+logging:
+  level: "info"
+  format: "json"
+
+notarization:
+  max_transcript_size: 4096  # 1MB
+  max_sent_data: 4096  # 1MB
+  max_recv_data: 4096  # 1MB
+  session_timeout: 300  # 5 minutes
+  timeout: 300  # 5 minutes
+
+authorization:
+  enabled: false
+  api_key: ""
+
+notary_key:
+  private_key_pem_path: "notary_key.p8"
+  public_key_pem_path: "notary_key.pub" 

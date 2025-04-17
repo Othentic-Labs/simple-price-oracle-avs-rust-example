@@ -3,6 +3,14 @@ name = "Execution_Service"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "tls-prove"
+path = "src/services/tls_prove.rs"
+
+[[bin]]
+name = "notary-server"
+path = "src/services/notary_server.rs"
+
 [dependencies]
 actix-web = "4.9.0"
 dotenv = "0.15.0"
@@ -17,3 +25,16 @@ hex = "0.4"
 ethers = "2.0"
 alloy = { version = "0.11.0", features = ["full"] }
 alloy-sol-types = "0.8.19"
+tlsn-prover = { path = "tlsn-src/crates/prover" }
+tlsn-core = { path = "tlsn-src/crates/core" }
+tlsn-common = { path = "tlsn-src/crates/common" }
+notary-server = { path = "tlsn-src/crates/notary/server" }
+notary-client = { path = "tlsn-src/crates/notary/client" }
+anyhow = "1.0"
+futures-util = "0.3"
+tokio-util = { version = "0.7", features = ["compat"] }
+config = "0.14"
+eyre = "0.6"
+async-tungstenite = { version = "0.21", features = ["tokio-native-tls"] }
+tokio-tungstenite = "0.20"
+
