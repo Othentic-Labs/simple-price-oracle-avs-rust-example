@@ -29,7 +29,7 @@ This project demonstrates a complete implementation of a TLSNotary-based attesta
 
 ## Architecture
 
-![Price oracle sample](https://github.com/user-attachments/assets/03d544eb-d9c3-44a7-9712-531220c94f7e)
+![Price oracle sample](./image.png)
 
 The Performer node executes tasks using the Task Execution Service and sends the results to the p2p network.
 
