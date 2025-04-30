@@ -67,21 +67,21 @@ Attester Nodes validate task execution through the Validation Service. Based on 
 
 ## Usage
 
-1. Start the Notary Server
+### 1. Start the Notary Server
 ```bash
 cd Execution_Service/tlsn-src/crates/notary/server
 cargo run -r -- --tls-enabled false
 ```
 The server will start listening on `0.0.0.0:7047`.
 
-2. Start the Fixture Server
+### 2. Start the Fixture Server
 ```bash
 cd Execution_Service/tlsn-src/crates/server-fixture/server
 PORT=4000 cargo run --release
 ```
 Simulates an HTTPS server used by the prover to establish TLS sessions.
 
-3. Run the Execution Service (Prover)
+### 3. Run the Execution Service (Prover)
 ```bash
 cd Execution_Service/
 cargo build
@@ -91,7 +91,7 @@ cargo run --bin Execution_Service
 ```
 The Execution service will start on port 4003.
 
-4. Trigger task execution with following command
+### 4. Trigger task execution with following command
 
 ```bash
 curl -X POST http://localhost:4003/task/execute -H "Content-Type: application/json" -d "{}"
@@ -103,7 +103,7 @@ It will:
 - Create a notarized TLS transcript file (example-json.presentation.tlsn)
 - Upload the file to the IPFS and Return the IPFS hash as Proof of Task
 
-5. Run the Validation Service (Verifier)
+### 5. Run the Validation Service (Verifier)
 ```bash
 cd Validation_Service/
 cargo build
@@ -112,7 +112,7 @@ cargo build
 cargo run --bin Validation_Service
 ```
 
-6. Validate the Proof of Task
+### 6. Validate the Proof of Task
 Replace <proofOfTask> with the actual hash returned from the Execution Service:
 
 ```bash
