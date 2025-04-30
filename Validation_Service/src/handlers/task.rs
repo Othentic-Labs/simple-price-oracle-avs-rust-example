@@ -45,7 +45,7 @@ impl ErrorResponse {
 pub async fn validate_task(request: web::Json<ValidateRequest>) -> impl Responder {
     let proof_of_task = &request.proofOfTask;
 
-    info!("proofOfTask: {}", proof_of_task);
+    println!("proofOfTask: {}", proof_of_task);
 
     match validation_service::validate(&proof_of_task).await {
         Ok(result) => {
