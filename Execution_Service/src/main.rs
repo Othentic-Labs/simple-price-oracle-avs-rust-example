@@ -23,8 +23,6 @@ async fn health_check() -> impl Responder {
 // Main function
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    // services::tls_prove::main().await?;
-
     // Load environment variables (if using dotenv)
     dotenv::dotenv().ok();
 

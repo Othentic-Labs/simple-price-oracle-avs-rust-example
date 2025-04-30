@@ -26,16 +26,6 @@ pub async fn execute_task(payload: web::Json<ExecuteTaskPayload>) -> impl Respon
 
     notary_service::run().await;
 
-    // // Upload the generated proof file to IPFS
-    // let ipfs_hash = match ipfs_service::upload_proof_file().await {
-    //     Ok(hash) => hash,
-    //     Err(err) => {
-    //         eprintln!("Error uploading to IPFS: {}", err);
-    //         return HttpResponse::ServiceUnavailable().json("IPFS upload error");
-    //     }
-    // };
-    // dal_service::send_task(ipfs_hash.clone(), task_definition_id).await;
-
     match ipfs_service::upload_to_pinata("example-json.presentation.tlsn").await {
         Ok(ipfs_hash) => {
             dal_service::send_task(ipfs_hash.clone(), task_definition_id).await;
