@@ -94,6 +94,11 @@ services:
       dockerfile: ./Dockerfile
     env_file:
       - .env
+    depends_on:
+      tlsn-server-fixture:
+        condition: service_started
+      notary-server:
+        condition: service_started
     networks:
       p2p:
         ipv4_address: 10.8.0.42
@@ -108,9 +113,41 @@ services:
       - .env
     ports:
       - "4003:4003"
+    depends_on:
+      tlsn-server-fixture:
+        condition: service_started
+      notary-server:
+        condition: service_started
     networks:
       p2p:
         ipv4_address: 10.8.0.101
+
+  tlsn-server-fixture:
+    image: rustlang/rust:nightly-slim
+    working_dir: /app/Execution_Service/tlsn-src/crates/server-fixture/server
+    volumes:
+      - .:/app
+    command: ["bash", "-c", "rustup default nightly && cargo run --release"]
+    environment:
+      - PORT=4000
+    ports:
+      - "4000:4000"
+    networks:
+      p2p:
+        ipv4_address: 10.8.0.111
+
+  notary-server:
+    image: rustlang/rust:nightly-slim
+    working_dir: /app/Execution_Service/tlsn-src/crates/notary/server
+    volumes:
+      - .:/app
+    command: [
+      "bash", "-c",
+      "apt-get update && apt-get install -y pkg-config libssl-dev && rustup default nightly && cargo run --release -- --tls-enabled false"
+    ]
+    networks:
+      p2p:
+        ipv4_address: 10.8.0.112
 
 networks:
   p2p:

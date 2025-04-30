@@ -8,16 +8,20 @@ name = "tls-prove"
 path = "src/services/tls_prove.rs"
 
 [[bin]]
-name = "notary-server"
-path = "src/services/notary_server.rs"
+name = "attestation-prove"
+path = "src/services/tls/prove.rs"
+
+[[bin]]
+name = "attestation-present"
+path = "src/services/tls/present.rs"
 
 [dependencies]
 actix-web = "4.9.0"
 dotenv = "0.15.0"
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.11", features = ["json", "multipart"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1", features = ["full", "macros"] }
 web3 = "0.15"
 secp256k1 = "0.11"
 ethabi = "15.0.0"
@@ -37,4 +41,15 @@ config = "0.14"
 eyre = "0.6"
 async-tungstenite = { version = "0.21", features = ["tokio-native-tls"] }
 tokio-tungstenite = "0.20"
+bincode = "1.3"
+tlsn-examples = { path = "tlsn-src/crates/examples" }
+tlsn-formats = { path = "tlsn-src/crates/formats" }
+http-body-util = "0.1.0"
+tlsn-server-fixture = { path = "tlsn-src/crates/server-fixture/server" }
+hyper-util = "0.1.11"
+hyper = "1.6.0"
+clap = "4.5.37"
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
+ipfs-api = "0.15.0"
 
