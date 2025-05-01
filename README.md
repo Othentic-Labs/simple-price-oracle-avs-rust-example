@@ -80,8 +80,8 @@ Validation Service logic:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Othentic-Labs/avs-examples.git
-   cd avs-examples/simple-price-oracle-avs-rust-example
+   git clone https://github.com/Othentic-Labs/simple-price-oracle-avs-rust-example.git
+   cd simple-price-oracle-avs-rust-example
    ```
 
 2. Install Othentic CLI:
