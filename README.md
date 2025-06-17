@@ -92,7 +92,7 @@ Validation Service logic:
 
 ## Usage
 
-Follow the steps in the official documentation's [Quickstart](https://docs.othentic.xyz/main/avs-framework/quick-start#steps) Guide for setup and deployment.
+Follow the steps in the official documentation's [Quickstart](https://docs.othentic.xyz/main/welcome/getting-started/install-othentic-cli) Guide for setup and deployment.
 
 If you already have all the information required to run the AVS, simply copy the .env file into your project directory and then run:
 ```bash
