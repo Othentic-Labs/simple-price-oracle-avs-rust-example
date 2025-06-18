@@ -12,7 +12,7 @@ async fn main() -> std::io::Result<()> {
     // Load environment variables (if using dotenv)
     dotenv::dotenv().ok();
 
-    // Get the port from environment variables or default to 4003
+    // Get the port from environment variables or default to 4002
     let port: u16 = env::var("PORT")
         .unwrap_or_else(|_| "4002".to_string())
         .parse()
