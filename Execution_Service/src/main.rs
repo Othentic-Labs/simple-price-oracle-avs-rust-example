@@ -16,6 +16,8 @@ fn init_dal_service() {
 }
 
 // Define a simple health-check endpoint
+#[allow(dead_code)]
+// this function was never read, if included as a route (e.g. /health), remove the line above
 async fn health_check() -> impl Responder {
     "Server is running"
 }
