@@ -26,11 +26,10 @@ pub async fn execute_task(payload: web::Json<ExecuteTaskPayload>) -> impl Respon
         Ok(price_data) => {
             let proof_of_task = price_data.price;
             // Send the task
-            dal_service::send_task(proof_of_task.clone(), task_definition_id).await;
-            HttpResponse::Ok().json("Task executed successfully".to_string()) // Return the response as JSON
+            dal_service::send_task(proof_of_task, task_definition_id).await;
+            HttpResponse::Ok().json("Task executed successfully")
         }
         Err(err) => {
-            // Error fetching price
             eprintln!("Error fetching price: {}", err);
             HttpResponse::ServiceUnavailable().json("Network error occurred")
             
