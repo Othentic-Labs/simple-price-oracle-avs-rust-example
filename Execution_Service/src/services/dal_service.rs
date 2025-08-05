@@ -1,13 +1,15 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize};
 use std::error::Error;
+use std::sync::OnceLock;
 use reqwest::Client;
 use serde_json::json;
 use alloy::{
     hex::{self, encode}, primitives::{keccak256, Bytes}, signers::{k256::{ecdsa::SigningKey, elliptic_curve::generic_array::GenericArray}, local::PrivateKeySigner, Signer}
 };
-use alloy_sol_types::{SolValue, sol};
+use alloy_sol_types::{SolValue};
 
 #[derive(Debug, Deserialize)]
+#[allow(dead_code)]
 struct JsonRpcResponse {
     jsonrpc: String,
     result: Option<serde_json::Value>,
@@ -37,20 +39,16 @@ impl Config {
 }
 
 // Global Config instance
-static mut CONFIG: Option<Config> = None;
+static CONFIG: OnceLock<Config> = OnceLock::new();
 
 // Set up global Config (can be called once at initialization)
 pub fn init_config(private_key: String, eth_rpc_url: String) {
-    unsafe {
-        CONFIG = Some(Config::new(private_key, eth_rpc_url));
-    }
+    CONFIG.set(Config::new(private_key, eth_rpc_url)).expect("Config already initialized");
 }
 
 pub async fn send_task(proof_of_task: String, task_definition_id: i32) -> Result<(), Box<dyn Error>> {
     // Access global Config
-    let config = unsafe {
-        CONFIG.as_ref().expect("Config is not initialized")
-    };
+    let config = CONFIG.get().expect("Config is not initialized");
     let data = "hello";
     let result = Bytes::from(data.as_bytes().to_vec());
 
@@ -62,8 +60,8 @@ pub async fn send_task(proof_of_task: String, task_definition_id: i32) -> Result
 
     let performer_address = signer.address();
 
-    println!("Address {:?}, {:?}, {:?}, {}", proof_of_task, result, performer_address, task_definition_id );
-    let my_values = (proof_of_task.to_string(), &result, performer_address, task_definition_id);
+    println!("Proof of task {:?}, Result {:?}, Performer address {:?}, Task definition id {:?}", proof_of_task, result, performer_address, task_definition_id );
+    let my_values = (&proof_of_task, &result, performer_address, task_definition_id);
 
     let encoded_data = my_values.abi_encode_params();
 

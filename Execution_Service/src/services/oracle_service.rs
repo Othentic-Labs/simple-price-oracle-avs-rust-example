@@ -2,6 +2,7 @@ use reqwest::Error;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
+#[allow(dead_code)]
 pub struct PriceResponse {
     pub symbol: String,
     pub price: String,
